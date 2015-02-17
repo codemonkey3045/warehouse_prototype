@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="movers.js"></script>
+</head>
+<style>
+  body {
+    font-size: 20px;
+  }
+
+  div#home div#mainNav {
+    width: 40%;
+    margin: 0 auto 50px auto;
+  }
+  div#home div#mainNav a{
+    font-size: x-large;
+    background-color: lightgreen;
+    padding: 10%;
+    text-shadow: none;
+  }
+
+  div#receivers a[href="#receiversItem"] {
+    width: 40%;
+    padding: 20px;
+    margin: 0 auto 200px auto;
+    background-color: lightblue;
+    /*font-size: x-large;*/
+  }
+
+  div#movers table {
+    /*looks easier to read on mac. TODO: Check for blurriness on tablet!*/
+  text-shadow: none;
+  }
+
+  /*default button for hiding columns in table*/
+  div#movers .ui-table-columntoggle-btn {
+    display: none;
+  }
+
+  div#movers #templateMoversTask {
+    display: none;
+  }
+
+  div#movers img {
+    float: left;
+    height: 100px;
+  }
+
+  div#movers .title {
+    /*font-weight: bold;*/
+    padding-left: 15px;
+  }
+
+  div#movers .author,
+  div#movers .width,
+  div#movers .weight {
+    padding-left: 15px;
+    font-size: medium;
+  }
+
+  div#movers .height {
+    font-size: medium;
+  }
+
+  div#movers td, tr {
+    border: 1px solid lightgrey;
+  }
+
+  div#movers .tableheader {
+    background-color: beige;
+    text-align: center;
+    font-weight: bold;
+    line-height: 0.5em;
+  }
+
+  div#movers .chosen {
+    background-color: #5BC85B;
+  }
+
+  div#movers .suggested {
+    background-color: #90EE90;
+  }
+
+  div#pullers p {
+    margin: 0 0;
+  }
+
+  div#pullers div#bankChoices {
+    height: 90%;
+  }
+
+  div#pullers div#bankChoices a {
+    height: 5%;
+    width: 5%;
+    padding: 2%;
+    font-size: xx-large;
+    color: black;
+    background-color: pink;
+    text-align: center;
+  }
+
+  div#pullersBank .billy {
+    width: 10%;
+    display: inline-block;
+  }
+
+</style>
+<script>
+  var localData = {};
+
+  $(document).on("pageinit", "#pullersBank", function( event ) {
+    var bank = localStorage.getItem('wcs_bankChosen');
+  });
+
+
+  $(document).on('click', '#pullers div#bankChoices button', function() {
+    localStorage.setItem('wcs_bankChosen', $(this).text());
+  });
+
+  $(document).on('displaySuggestions', function() {
+    var pickUpLocations = [],
+        dropOffLocations = [],
+        chosenTasks = $('tr.chosen'),
+        i;
+
+    if (chosenTasks.length === 0) {
+      return; //Nothing is chosen.
+    } else {
+      //Let's find all tasks with the same pickup or the same dropoff
+      for (i = 0; i < chosenTasks.length; i += 1) {
+
+      }
+
+    }
+  });
+
+  $(document).on("pageinit", "#home", function( event ) {
+    console.log( "This page was just enhanced by jQuery Mobile!" );
+  });
+
+  $(document).on('click', 'tbody#regularTasks tr', function() {
+    $(this).toggleClass('chosen');
+    console.log("yelp");
+    $(this).off('click');
+    $(document).trigger('displaySuggestions');
+  });
+
+  $(document).on( "pageinit", "#movers", function( event ) {
+    var localData = {};
+    localData.tasks = [
+      {
+        "pickUp": "340",
+        "dropOff": "E3",
+        "item": "Fade Away",
+        "author": "Myron Bolitar",
+        "image": "fade-away.jpg",
+        "urgency": "2015-03-06 12:45:00",
+        "width": "6 in",
+        "height": "8 in",
+        "weight": "1.2 lbs"
+      },
+      {
+        "pickUp": "100",
+        "dropOff": "E3",
+        "item": "The Last Magazine",
+        "author": "Michael Hastings",
+        "image": "the-last-magazine.jpg",
+        "urgency": "2015-03-06 2:45:00",
+        "width": "6 in",
+        "height": "8 in",
+        "weight": "1.2 lbs"
+      },
+      {
+        "pickUp": "330",
+        "dropOff": "Z1",
+        "item": "The Museum of Extraordinary Things",
+        "author": "Alice Hoffman",
+        "image": "the-museum-of-extraordinary-things.jpg",
+        "urgency": "2015-03-06 3:45:00",
+        "width": "6 in",
+        "height": "8 in",
+        "weight": "1.2 lbs"
+      },
+      {
+        "pickUp": "341",
+        "dropOff": "DA3",
+        "item": "Wish You Happy Forever",
+        "author": "Jenny Bowen",
+        "image": "wish-you-happy-forever.jpg",
+        "urgency": "2015-03-07 3:45:00",
+        "width": "6 in",
+        "height": "8 in",
+        "weight": "1.2 lbs"
+      },
+      {
+        "pickUp": "320",
+        "dropOff": "DA3",
+        "item": "Wish You Happy Forever",
+        "author": "Jenny Bowen",
+        "image": "wish-you-happy-forever.jpg",
+        "urgency": "2015-03-07 3:45:00",
+        "width": "6 in",
+        "height": "8 in",
+        "weight": "1.2 lbs"
+      },
+      {
+        "pickUp": "320",
+        "dropOff": "DA3",
+        "item": "Wish You Happy Forever",
+        "author": "Jenny Bowen",
+        "image": "wish-you-happy-forever.jpg",
+        "urgency": "2015-03-07 3:45:00",
+        "width": "6 in",
+        "height": "8 in",
+        "weight": "1.2 lbs"
+      }
+    ];
+
+    var tasks = localData.tasks,
+        tasksLength = tasks.length,
+        $newTask,
+        i;
+
+    console.log("here");
+    for(i = 0; i < tasksLength; i += 1) {
+      $newTask = $('#templateMoversTask').clone();
+      $newTask.removeAttr('id');
+      $newTask.attr('data-sku', tasks.title);
+
+      $newTask.find('.pickup').text(tasks[i].pickUp);
+      $newTask.find('.dropoff').text(tasks[i].dropOff);
+      $newTask.find('.item').html('<img src="' + 'images/' + tasks[i].image + '"/>'
+          + '<span class="title">' + tasks[i].item + '</span>'
+          + '<br />'
+          + '<span class="author">' + tasks[i].author + '</span>'
+          + '<br />'
+          + '<span class="width">' + tasks[i].width + '</span>'
+          + ' x '
+          + '<span class="height">' + tasks[i].height + '</span>'
+          + '<span class="weight">' + tasks[i].weight + '</span>');
+      $newTask.find('.urgency').text(tasks[i].urgency);
+      $newTask.find('.pickup').text(tasks[i].pickUp);
+
+      if (i === 5) {
+        $('#moversTaskTable tbody#pendingTasks').append($newTask);
+      } else if (i === 4) {
+        $('#moversTaskTable tbody#leviTasks').append($newTask);
+      } else {
+        $('#moversTaskTable tbody#regularTasks').append($newTask);
+      }
+    }
+
+    //TODO add listener to each row.
+    //on click, highlight all that are same ship or drop
+
+    //move them to pending
+    //make section for levi
+  });
+</script>
+
+<body>
+
+<div data-role="page" id="home">
+
+  <div data-role="header" data-theme="b">
+    <h1>Totally Awesome Warehouse</h1>
+  </div>
+  <!-- /header -->
+
+  <div data-role="content">
+    <p style="text-align: center;">Please pick a task to start</p>
+    <div data-role="controlgroup" id="mainNav">
+      <a href="#receivers" data-role="button" data-transition="pop" data-icon="arrow-r">Receiving</a>
+      <a href="#movers" data-role="button" data-transition="pop" data-icon="arrow-r">Moving</a>
+      <a href="#pullers" data-role="button" data-transition="pop" data-icon="arrow-r">Pulling</a>
+    </div>
+
+  </div>
+  <!-- /content -->
+
+  <div data-role="footer">
+    <h4>Useful footer info like a phone number and/or email</h4>
+  </div>
+
+</div>
+
+<div data-role="page" id="receivers">
+
+  <div data-role="header" data-theme="b">
+    <a href="#home" data-icon="home" data-iconpos="notext">Home</a>
+
+    <h1>Receivers Dashboard</h1>
+  </div>
+  <!-- /header -->
+
+
+  <div data-role="content">
+    <div data-role="fieldcontain">
+      <label for="receivingSKU" data-clear-btn="true">Scan or type SKU: </label>
+      <input type="text" data-clear-btn="true" name="sku" id="receivingSKU" value="">
+    </div>
+    <a href="#receiversItem" data-role="button" data-icon="search">Lookup Item</a>
+  </div>
+  <!-- /content -->
+
+  <div data-role="footer">
+    <div class="ui-grid-b">
+      <div class="ui-block-a">
+        Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated
+      </div>
+      <div class="ui-block-b">Block B</div>
+      <div class="ui-block-c">
+        One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.
+      </div>
+    </div><!-- /grid-b -->
+  </div>
+
+</div>
+
+<div data-role="page" id="movers">
+
+  <div data-role="header"  data-theme="b">
+    <a href="#home" data-icon="home" data-iconpos="notext">Home</a>
+
+    <h1>Movers Dashboard</h1>
+  </div>
+  <!-- /header -->
+
+
+  <div data-role="content">
+    <table data-role="table" data-mode="columntoggle" id="moversTaskTable">
+      <thead>
+      <tr>
+        <th>PickUp</th>
+        <th>DropOff</th>
+        <th style="width:60%">Item</th>
+        <th>Timer</th>
+      </tr>
+      </thead>
+      <tbody id="regularTasks">
+      <tr id="templateMoversTask">
+        <td class="pickup">&nbsp;</td>
+        <td class="dropoff">&nbsp;</td>
+        <td class="item"></td>
+        <td class="urgency">&nbsp;</td>
+      </tr>
+      </tbody>
+      <tbody id="leviTasks">
+      <tr><td class="tableheader" colspan = "4">Levi Tasks</td></tr>
+      </tbody>
+      <tbody id="pendingTasks">
+      <tr><td class="tableheader" colspan = "4">Tasks being worked on</td></tr>
+      </tbody>
+    </table>
+    <!--<ul>-->
+      <!--<li><div style="width:20%"></div></li>-->
+    <!--</ul>-->
+
+  </div>
+  <!-- /content -->
+
+  <div data-role="footer">
+    <h4>Footer placeholder</h4>
+  </div>
+</div>
+
+<div data-role="page" id="pullers">
+
+  <div data-role="header" data-theme="b">
+    <a href="#home" data-icon="home" data-iconpos="notext">Home</a>
+
+    <h1>Pullers Dashboard</h1>
+    <!--<a href="#left-panel" data-theme="d" data-icon="arrow-r" data-iconpos="notext" data-shadow="false"-->
+    <!--data-iconshadow="false" class="ui-icon-nodisc">Open left panel</a>-->
+    <!--<a href="#right-panel" data-theme="d" data-icon="arrow-l" data-iconpos="notext" data-shadow="false"-->
+    <!--data-iconshadow="false" class="ui-icon-nodisc">Open right panel</a>-->
+  </div>
+  <!-- /header -->
+
+  <div data-role="content">
+    <!--<label for="bankChoice"></label>-->
+    <p>Please choose your bank</p>
+    <div id="bankChoices">
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">A</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">B</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">C</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">D</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">E</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">F</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">G</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">H</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">I</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">J</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">K</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">L</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">M</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">N</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">O</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">P</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">Q</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">R</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">S</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">T</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">U</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">V</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">W</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">X</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">Y</a>
+      <a href="#pullersBank" data-role="button" data-inline="true" data-theme="b">Z</a>
+    </div>
+  </div><!-- /content -->
+
+
+  <div data-role="footer">
+    <h4>Footer placeholder</h4>
+  </div>
+
+</div>
+<div data-role="page" id="pullersBank">
+
+  <div data-role="header" data-theme="b">
+    <a href="#home" data-icon="home" data-iconpos="notext">Home</a>
+    <a href="#pullers" data-icon="back" data-iconpos="notext">Back</a>
+    <h1>Pullers Dashboard - Bank</h1>
+
+  </div>
+  <!-- /header -->
+
+  <div data-role="content">
+    <p>mmmm.....what is the best way to do this?</p>
+    <div data-role="controlgroup" class="billy">
+      <a href="#pullersBankItem" id="dialoglink" data-role="button">1</a>
+      <a href="#pullersBankItem" data-role="button">2</a>
+      <a href="#pullersBankItem" data-role="button">3</a>
+      <a href="#pullersBankItem" data-role="button">4</a>
+      <a href="#pullersBankItem" data-role="button">5</a>
+      <a href="#pullersBankItem" data-role="button">6</a>
+      <a href="#pullersBankItem" data-role="button">7</a>
+      <a href="#pullersBankItem" data-role="button">8</a>
+      <a href="#pullersBankItem" data-role="button">9</a>
+      <a href="#pullersBankItem" data-role="button">10</a>
+    </div>
+    <div data-role="controlgroup" class="billy">
+      <a href="#pullersBankItem" id="dialoglink2" data-role="button">1</a>
+      <a href="#pullersBankItem" data-role="button">2</a>
+      <a href="#pullersBankItem" data-role="button">3</a>
+      <a href="#pullersBankItem" data-role="button">4</a>
+      <a href="#pullersBankItem" data-role="button">5</a>
+      <a href="#pullersBankItem" data-role="button">6</a>
+      <a href="#pullersBankItem" data-role="button">7</a>
+      <a href="#pullersBankItem" data-role="button">8</a>
+      <a href="#pullersBankItem" data-role="button">9</a>
+      <a href="#pullersBankItem" data-role="button">10</a>
+    </div>
+    <div data-role="controlgroup" class="billy">
+      <a href="#pullersBankItem" id="dialoglink2" data-role="button">1</a>
+      <a href="#pullersBankItem" data-role="button">2</a>
+      <a href="#pullersBankItem" data-role="button">3</a>
+      <a href="#pullersBankItem" data-role="button">4</a>
+      <a href="#pullersBankItem" data-role="button">5</a>
+      <a href="#pullersBankItem" data-role="button">6</a>
+      <a href="#pullersBankItem" data-role="button">7</a>
+      <a href="#pullersBankItem" data-role="button">8</a>
+      <a href="#pullersBankItem" data-role="button">9</a>
+      <a href="#pullersBankItem" data-role="button">10</a>
+    </div>
+    <div data-role="controlgroup" class="billy">
+      <a href="#pullersBankItem" id="dialoglink2" data-role="button">1</a>
+      <a href="#pullersBankItem" data-role="button">2</a>
+      <a href="#pullersBankItem" data-role="button">3</a>
+      <a href="#pullersBankItem" data-role="button">4</a>
+      <a href="#pullersBankItem" data-role="button">5</a>
+      <a href="#pullersBankItem" data-role="button">6</a>
+      <a href="#pullersBankItem" data-role="button">7</a>
+      <a href="#pullersBankItem" data-role="button">8</a>
+      <a href="#pullersBankItem" data-role="button">9</a>
+      <a href="#pullersBankItem" data-role="button">10</a>
+    </div>
+    <div data-role="controlgroup" class="billy">
+      <a href="#pullersBankItem" id="dialoglink2" data-role="button">1</a>
+      <a href="#pullersBankItem" data-role="button">2</a>
+      <a href="#pullersBankItem" data-role="button">3</a>
+      <a href="#pullersBankItem" data-role="button">4</a>
+      <a href="#pullersBankItem" data-role="button">5</a>
+      <a href="#pullersBankItem" data-role="button">6</a>
+      <a href="#pullersBankItem" data-role="button">7</a>
+      <a href="#pullersBankItem" data-role="button">8</a>
+      <a href="#pullersBankItem" data-role="button">9</a>
+      <a href="#pullersBankItem" data-role="button">10</a>
+    </div>
+    <div data-role="controlgroup" class="billy">
+      <a href="#pullersBankItem" id="dialoglink2" data-role="button">1</a>
+      <a href="#pullersBankItem" data-role="button">2</a>
+      <a href="#pullersBankItem" data-role="button">3</a>
+      <a href="#pullersBankItem" data-role="button">4</a>
+      <a href="#pullersBankItem" data-role="button">5</a>
+      <a href="#pullersBankItem" data-role="button">6</a>
+      <a href="#pullersBankItem" data-role="button">7</a>
+      <a href="#pullersBankItem" data-role="button">8</a>
+      <a href="#pullersBankItem" data-role="button">9</a>
+      <a href="#pullersBankItem" data-role="button">10</a>
+    </div>
+    <div data-role="controlgroup" class="billy">
+    <a href="#pullersBankItem" id="dialoglink2" data-role="button">1</a>
+    <a href="#pullersBankItem" data-role="button">2</a>
+    <a href="#pullersBankItem" data-role="button">3</a>
+    <a href="#pullersBankItem" data-role="button">4</a>
+    <a href="#pullersBankItem" data-role="button">5</a>
+    <a href="#pullersBankItem" data-role="button">6</a>
+    <a href="#pullersBankItem" data-role="button">7</a>
+    <a href="#pullersBankItem" data-role="button">8</a>
+    <a href="#pullersBankItem" data-role="button">9</a>
+    <a href="#pullersBankItem" data-role="button">10</a>
+  </div>
+
+
+  </div><!-- /content -->
+
+
+  <div data-role="footer">
+    <h4>Footer placeholder</h4>
+  </div>
+
+</div>
+
+</body>
+</html>
