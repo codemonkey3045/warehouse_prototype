@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Totally Awesome Warehouse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <script src="js/receivers.js"></script>
+  <link rel="stylesheet" href="css/receivers.css">
+
+</head>
+
+<body>
+
+<div data-role="page" id="receivers">
+
+  <div data-role="header" data-theme="b">
+    <a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+    <h1>Receivers Dashboard</h1>
+  </div><!-- header -->
+
+  <div data-role="content">
+    <div data-role="fieldcontain">
+      <label for="receivingSKU" data-clear-btn="true">Scan or type SKU: </label>
+      <input type="text" data-clear-btn="true" name="sku" id="receivingSKU" value="">
+    </div>
+    <a href="#receiversItem" data-role="button" data-icon="search">Lookup Item</a>
+  </div><!-- content -->
+
+  <div data-role="footer">
+    <h4>Footer placeholder</h4>
+  </div><!-- footer -->
+
+</div>
+
+
+<div data-role="page" id="receiversItem">
+
+  <div data-role="header" data-theme="b">
+    <a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+    <h1>Receivers Dashboard</h1>
+  </div><!-- header -->
+
+  <div data-role="content">
+    <p>All details about the item and some actions such as: </p>
+    <ul>
+      <li>submit quantity received</li>
+      <li>mark job done</li>
+    </ul>
+    <p>...the receivers dashboard isn't really figured out yet.</p>
+  </div><!-- content -->
+
+  <div data-role="footer">
+    <h4>Footer placeholder</h4>
+  </div><!-- footer -->
+
+</div>
+
+
+</body>
+</html>

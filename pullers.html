@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Totally Awesome Warehouse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<!--React.js and JSX-->
+<script src="http://fb.me/react-0.12.2.js"></script>
+<script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+
+<!--External css and js files for this page-->
+<script src="js/pullers.js"></script>
+<link rel="stylesheet" href="css/pullers.css">
+
+<script type="text/jsx">
+/** @jsx React.DOM */
+
+    var BayCell = React.createClass({
+        render: function() {
+        console.log("I'm a location " + JSON.stringify(this.props.cell));
+            return (
+                <p>I'm a location {JSON.stringify(this.props.cell)} </p>
+            );
+        }
+    });
+
+    var BayRow = React.createClass({
+        render: function() {
+        var cells = [];
+        this.props.row.forEach(function(c) {
+            cells.push(<BayCell cell={c} />);
+        });
+        console.log("I'm a row " + JSON.stringify(this.props.row));
+            return (
+                <div>
+                <p>I'm a row</p>
+                <div>
+                {cells}
+                </div>
+                </div>
+            );
+        }
+    });
+
+    var Bay = React.createClass({
+        render: function() {
+        panels.push(Object.keys(this.props.bay)[0]);
+        var rows = [];
+        for(key in this.props.bay) {
+            for (innerKey in this.props.bay[key][0]) {
+                rows.push(<BayRow row={this.props.bay[key][0][innerKey]} />);
+            }
+        }
+        return (
+            <div>
+           <p>{rows}</p>
+            </div>
+            );
+        }
+    });
+
+    var BayPages = React.createClass({
+    /*    loadBaysFromServer: function() {
+         $.ajax({
+          url: this.props.url,
+          dataType: 'json',
+          success: function(data) {
+            this.setState({data: data});
+          }.bind(this),
+          error: function(xhr, status, err) {
+            //faking it
+            this.setState({data: data});
+          }.bind(this)
+        });
+      }, */
+    getInitialState: function() {
+        return {data: []};
+      },
+    /*  componentDidMount: function() {
+        this.loadBaysFromServer();
+      setInterval(this.loadBaysFromServer, this.props.pollInterval);
+      }, */
+      render: function() {
+          var pages = [];
+          panels = [];
+          this.props.bays.forEach(function(b) {
+          console.log(Object.keys(b)[0]);
+              pages.push(
+                 <div id={Object.keys(b)[0]}>
+                  <div data-role="header" data-theme="b">
+                    <a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+                    <h1>Pullers Dashboard - {Object.keys(b)[0].substring(1)}</h1>
+                  </div>
+
+                  <div data-role="content">
+                     <Bay bay={b} key={Object.keys(b)[0]} />
+                  </div>
+
+                  <div data-role="footer">
+                    <h4>Footer placeholder</h4>
+                  </div>
+                </div>
+              );
+          });
+
+          return (
+             <div>{pages}</div>
+          );
+      }
+    });
+
+    var FAKEDATA = [
+      {
+        "#D5": [
+          {
+            "1": [
+              {
+                "D515": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D525": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "2": [
+              {
+                "D514": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D524": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "3": [
+              {
+                "D513": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D523": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "4": [
+              {
+                "D512": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D522": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "5": [
+              {
+                "D511": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D521": {
+                  "width": "7",
+                  "length": "115",
+                  "height": "7.5"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "#D6": [
+          {
+            "1": [
+              {
+                "D617": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D627": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "2": [
+              {
+                "D616": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D626": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "3": [
+              {
+                "D615": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D625": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "4": [
+              {
+                "D614": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D624": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "5": [
+              {
+                "D613": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D623": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "6": [
+              {
+                "D612": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D622": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              }
+            ],
+            "7": [
+              {
+                "D611": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              },
+              {
+                "D621": {
+                  "width": "7",
+                  "length": "84",
+                  "height": "7.5"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    var panels = [];
+
+     React.render(<BayPages bays={FAKEDATA} pollInterval={20000000} url="fake.json" />, document.body);
+
+</script>
+
+<script>
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

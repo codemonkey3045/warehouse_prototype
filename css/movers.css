@@ -1,0 +1,71 @@
+div#movers a#moversStartJob:not([href='']) {
+  background-color: lightgreen;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+
+div#movers a#moversStartJob[href=''] {
+  background-color: lightgrey;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+
+div#movers table {
+  /*looks easier to read on mac. TODO: Check for blurriness on tablet!*/
+  text-shadow: none;
+}
+
+/*default button for hiding columns in table*/
+div#movers .ui-table-columntoggle-btn {
+  display: none;
+}
+
+div#movers #templateMoversTask,
+div#moversJob #templateCurrentMoverTask{
+  display: none;
+}
+
+div#movers .title {
+  /*font-weight: bold;*/
+  padding-left: 15px;
+}
+
+div#movers .height {
+  font-size: medium;
+}
+
+div#movers td, tr {
+  border: 1px solid lightgrey;
+}
+
+div#movers .tableheader {
+  background-color: beige;
+  text-align: center;
+  font-weight: bold;
+  line-height: 0.5em;
+}
+
+div#movers .chosen {
+  background-color: #5BC85B;
+}
+
+div#movers .suggested {
+  background-color: #90EE90;
+}
+
+div#moversJob img {
+  float: left;
+  height: 100px;
+}
+
+div#moversJob .title {
+  /*font-weight: bold;*/
+  padding-left: 15px;
+}
+
+div#moversJob .author,
+div#moversJob .width,
+div#moversJob .weight {
+  padding-left: 15px;
+  font-size: medium;
+}

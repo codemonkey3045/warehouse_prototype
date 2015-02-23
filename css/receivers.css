@@ -1,0 +1,7 @@
+div#receivers a[href="#receiversItem"] {
+  width: 40%;
+  padding: 20px;
+  margin: 0 auto 200px auto;
+  background-color: lightblue;
+  /*font-size: x-large;*/
+}

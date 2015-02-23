@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Totally Awesome Warehouse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--JQuery-->
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <!--React.js and JSX-->
+  <script src="http://fb.me/react-0.12.2.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+
+  <!--External css and js files for this page-->
+  <script src="js/movers.js"></script>
+  <link rel="stylesheet" href="css/movers.css">
+
+  <style>
+    div#movers div#item {
+      background-color: beige;
+      width: 50%;
+      height: 50%;
+    }
+
+    th {
+      background-color: beige;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 200px;
+      max-height: 400px;
+    }
+  </style>
+
+  <script type="text/jsx">
+  /** @jsx React.DOM */
+
+  var MoveOwnerRow = React.createClass({
+      render: function() {
+          if (this.props.owner === "current") {
+              return (<tr><th colSpan="4">You're currently working on</th></tr>);
+          } else {
+              return (<tr><th colSpan="4">Other needs</th></tr>);
+          }
+
+      }
+  });
+
+  var MoveRow = React.createClass({
+      render: function() {
+      console.log(this.props.need);
+      var rowColor = "white";
+      if (this.props.need.owner !== "null") { rowColor = "lightRed"; }
+      if (this.props.need.owner === "current") { rowColor = "lightGreen"; }
+          return (<tr style={{'backgroundColor': rowColor }}>
+                  <td className="pickup">{this.props.need.pickUp}</td>
+                  <td className="dropoff">{this.props.need.dropOff}</td>
+                  <td className="item">{this.props.need.item}</td>
+                  <td className="urgency">{this.props.need.urgency}</td>
+                  </tr>);
+      }
+  });
+
+  var MoveList = React.createClass({
+    loadNeedsFromServer: function() {
+         $.ajax({
+          url: this.props.url,
+          dataType: 'json',
+          success: function(data) {
+            this.setState({data: data});
+          }.bind(this),
+          error: function(xhr, status, err) {
+            //faking it
+            this.setState({data: data});
+          }.bind(this)
+        });
+      },
+    getInitialState: function() {
+        return {data: []};
+      },
+      componentDidMount: function() {
+        this.loadNeedsFromServer();
+      setInterval(this.loadNeedsFromServer, this.props.pollInterval);
+      },
+      render: function() {
+          var rows = [];
+          var lastOwner = null;
+          this.props.needs.forEach(function(need) {
+              if (need.owner !== lastOwner) {
+                  rows.push(<MoveOwnerRow owner={need.owner} key={need.owner} />);
+              }
+              rows.push(<MoveRow need={need} key={need.id} />);
+              lastOwner = need.owner;
+          });
+          return (
+              <table id="moversTaskTable">
+                <thead>
+                <tr>
+                  <th>PickUp</th>
+                  <th>DropOff</th>
+                  <th>Item</th>
+                  <th>Timer</th>
+                </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+              </table>
+          );
+      }
+  });
+
+  var ItemDetails = React.createClass({
+      render: function() {
+      console.log(this.props);
+          return(
+          <div >
+              <ul>
+                  <li>{this.props.item.item}</li>
+                  <li>{this.props.item.author}</li>
+                  <li>{this.props.item.width} x {this.props.item.height} x getLength</li>
+                  <li>getQuantity</li>
+              </ul>
+          </div>
+          );
+      }
+  });
+
+  var ItemContainer = React.createClass({
+      render: function() {
+        var staticData =   {
+        "id": "1234",
+        "pickUp": "340",
+        "dropOff": "E3",
+        "item": "Fade Away",
+        "author": "Myron Bolitar",
+        "image": "fade-away.jpg",
+        "urgency": "30 min",
+        "width": "6 in",
+        "height": "8 in",
+        "weight": "1.2 lbs",
+        "status": "new",
+        "owner": "current"
+      };
+      return( <div className="ui-grid-a">Static Placeholder <br />
+                  <img className="ui-block-a" src="images/fade-away.jpg" />
+                  <ItemDetails className="ui-block-b" item={staticData} key={staticData.id} />
+                  <button>UNLOCK</button>
+                  <button>DONE</button>
+              </div>);
+      }
+  });
+
+  React.render(<MoveList needs={tasks} pollInterval={20000000} url="fake.json" />, document.getElementById('list'));
+  React.render(<ItemContainer />, document.getElementById('item'));
+</script>
+</head>
+
+<body>
+
+<div data-role="page" id="movers">
+  <div data-role="header" data-theme="b">
+    <a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+
+    <h1>Movers Dashboard</h1>
+  </div>
+  <!-- header -->
+
+  <div data-role="content">
+    <div class="ui-grid-a">
+      <div class="ui-block-a" id="list">
+
+      </div>
+      <div class="ui-block-b" style="background-color: beige" id="item">
+
+      </div>
+    </div>
+  </div>
+  <!-- content -->
+
+  <div data-role="footer">
+    <h4>Footer placeholder</h4>
+  </div>
+  <!-- footer -->
+</div>
+
+</body>
+</html>
